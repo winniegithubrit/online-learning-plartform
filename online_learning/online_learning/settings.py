@@ -56,7 +56,10 @@ ROOT_URLCONF = 'online_learning.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'), 
+            
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,18 +120,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
+
 STATIC_URL = '/static/'
 
-STATICFILES_DIR = [
-    os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "AdminLTE-3.1.0"),
+# Add the following lines to ensure Django serves static files during development
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",
+    ]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),  # Your project's static files
+    # os.path.join(BASE_DIR, "AdminLTE-3.1.0"),  # If this is a third-party library
 ]
-STATIC_ROOT = BASE_DIR / 'static'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles' 
 
+# Media files (user-uploaded files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
 # Default primary key field type

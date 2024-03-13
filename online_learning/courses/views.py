@@ -1,10 +1,9 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render
 from .models import *
-from django.http import JsonResponse
+
 from django.http import HttpResponse
 from django.template import loader
-from django.template import TemplateDoesNotExist
-from django.http import HttpResponseServerError
+
 
 
 def home(request):
@@ -12,9 +11,11 @@ def home(request):
   return HttpResponse(template.render())
 
 def adminDesign(request):
-    try:
-        return render(request, 'courses/adminDesign.html')
-    except TemplateDoesNotExist:
-        return HttpResponseServerError('Template not found: adminDesign.html')
+  template = loader.get_template('courses/adminDesign.html')
+  return HttpResponse(template.render())
+
+def simple(request):
+  template = loader.get_template('courses/simple.html')
+  return HttpResponse(template.render())
 
 
